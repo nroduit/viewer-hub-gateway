@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      routes:
+        - id: DCM4CHEE-LOCAL
+          uri: http://localhost:8080
+          predicates:
+            # Proxy path containing /DCM4CHEE-LOCAL
+            - Path=/${spring.cloud.gateway.routes[0].id}/**
+          filters:
+            # Remove from the forwarded request the id used for routing
+            - RewritePath=/${spring.cloud.gateway.routes[0].id}/(?<remaining>.*),/dcm4chee-arc/aets/DCM4CHEE/$\{remaining}
+            # Inject OAuth2 token in authorization header
+            - name: OAuth2ClientCredentialToken
+              args:
+                clientRegistrationId: keycloak
+        - id: ORTHANC-LOCAL
+          uri: http://localhost:8042
+          predicates:
+            # Proxy path containing /ORTHANC-LOCAL
+            - Path=/${spring.cloud.gateway.routes[1].id}/**
+          filters:
+            # Remove from the forwarded request the id used for routing
+            - RewritePath=/${spring.cloud.gateway.routes[1].id}/(?<remaining>.*),/$\{remaining}
+            # Inject OAuth2 token in authorization header
+            - name: OAuth2ClientCredentialToken
+              args:
+                clientRegistrationId: keycloak

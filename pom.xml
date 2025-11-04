@@ -81,6 +81,12 @@
             <version>${springboot.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+
         <!-- =========== -->
         <!--   Gateway   -->
         <!-- =========== -->
@@ -89,6 +95,8 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
             <version>${springcloud.version}</version>
         </dependency>
+
+
 
         <!-- ================= -->
         <!--   Config server   -->

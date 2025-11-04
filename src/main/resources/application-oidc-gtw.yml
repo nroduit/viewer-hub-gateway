@@ -1,6 +1,7 @@
 spring:
   security:
     oauth2:
+      # --- Client ---
       client:
         registration:
           # ----------------------
@@ -19,3 +20,7 @@ spring:
           keycloak:
             issuer-uri: http://localhost:8085/realms/viewer-hub
             jwk-set-uri: http://localhost:8085/realms/viewer-hub/protocol/openid-connect/certs
+      # --- Resource Server ---
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8085/realms/viewer-hub

@@ -1,0 +1,36 @@
+# - Info
+info:
+  component: Viewer-Hub Gateway
+  app:
+    name: Viewer-Hub Gateway
+    description: Gateway for viewers integration
+  environment: ${ENVIRONMENT}
+
+# - Spring
+spring:
+  application:
+    name: viewer-hub-gateway
+  profiles:
+    active: oidc-gtw, gateway
+  config:
+    import: 'optional:configserver:'
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      discovery:
+        enabled: false
+        service-id: config-server
+      fail-fast: true
+      name: ${spring.application.name}
+      label: ${ENVIRONMENT}
+      uri: ${CONFIGSERVER_URI}
+
+# - Eureka
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: false
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE}
+    region: ${REGION}

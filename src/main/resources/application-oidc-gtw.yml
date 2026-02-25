@@ -1,0 +1,26 @@
+spring:
+  security:
+    oauth2:
+      # --- Client ---
+      client:
+        registration:
+          # ----------------------
+          # ------ Keycloak ------
+          # ----------------------
+          keycloak:
+            client-id: viewer-hub
+            client-secret: 'peLDyVHEpxTQ1A4GZZzQGK5xsPetlTrV'
+            authorization-grant-type: client_credentials
+            scope:
+              - basic
+        provider:
+          # ----------------------
+          # ------ Keycloak ------
+          # ----------------------
+          keycloak:
+            issuer-uri: http://localhost:8085/realms/viewer-hub
+            jwk-set-uri: http://localhost:8085/realms/viewer-hub/protocol/openid-connect/certs
+      # --- Resource Server ---
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8085/realms/viewer-hub
